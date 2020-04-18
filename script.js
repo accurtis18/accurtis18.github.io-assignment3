@@ -1,26 +1,3 @@
-// // Assignment Code
-// var generateBtn = document.querySelector("#generate");
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-
-// }
-
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
-
-// fucntion checkLength(pLength) {
-//     if(pLength > 7 && pLength < 129){
-//         return true;
-//     } else{
-//         return false;
-//     }
-// }
-
 function validation(passReqs, pass){
     var eachCheck = [];
 
@@ -40,9 +17,6 @@ function validation(passReqs, pass){
         var symbol = /[!$#-]/;
         eachCheck.push(symbol.test(pass));
     } 
-
-    var passwordText = document.querySelector('#password');
-    passwordText.value = pass + eachCheck;
     return eachCheck;
 }
 
@@ -53,27 +27,30 @@ function generatePassword(passLen, passValues, passReqs){
     var validCheck = [];
     var anyFalse = true;
     var isValid = false;
-    // while(isValid === false){
+    while(isValid === false){
         while(i < passLen){
             pword += passValues[Math.floor(Math.random() * (passValues.length))];
             i++;
         }
 
-        // validCheck = validation(passReqs, pword);
-        // for(var check of validCheck){
-        //     if(check !== true){
-        //         anyFalse = false;
-        //     }
-        // }
+        validCheck = validation(passReqs, pword);
+        for(var check of validCheck){
+            if(check !== true){
+                anyFalse = false;
+            }
+        }
 
-        // if(anyFalse === true){
-        //     isValid = true;
-        // }
+        if(anyFalse === false){
+            validCheck = [];
+        }
 
-    // }
-    // var passwordText = document.querySelector('#password');
-    // passwordText.value = pword + validCheck;  
-    return pword;  
+        if(anyFalse === true){
+            isValid = true;
+        }
+
+    }
+    var passwordText = document.querySelector('#password');
+    passwordText.value = pword;
 }
 
 function addRequirements(reqValues){
@@ -138,7 +115,6 @@ function createPassword(){
     var requirements = getRequirements();
     var passValues = addRequirements(requirements);
     var password = generatePassword(len, passValues, requirements);
-    var validated = validation(requirements, password);
 }
 
 var generateBtn = document.querySelector("#generate");
