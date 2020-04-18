@@ -17,38 +17,34 @@ function validation(passReqs, pass){
     if(passReqs[3] === true){
         var symbol = /[!$#-]/;
         eachCheck.push(symbol.test(pass));
-    } 
+    }
     return eachCheck;
 }
 
 //Generates a password based on requirements. Runs until requirements are met. Receives password length requirement, password values defined in addRequirements, and passReqs which will be used for validation.
-function generatePassword(passLen, passValues, passReqs){
-    var pword = "";
-    var i = 0;
-    var validCheck = [];
-    var anyFalse = true;
+function generatePassword(passLen, passVals, pReqs){
     var isValid = false;
 
     //Runs until a valid password is created
     while(isValid === false){
+        var i = 0;
+        var pword = "";
+        var validCheck = [];
+        var anyFalse = true;
         //creates password for length requested
         while(i < passLen){
-            pword += passValues[Math.floor(Math.random() * (passValues.length))];
+            pword += passVals[Math.floor(Math.random() * (passVals.length))];
             i++;
         }
 
         //calling function to see if password matches all requirements
-        validCheck = validation(passReqs, pword);
+        validCheck = validation(pReqs, pword);
+
         //looping through returned value - if all requirements are met, will set anyFalse to true to signfy all values are true
         for(var check of validCheck){
             if(check !== true){
                 anyFalse = false;
-            }
-        }
-
-        //if false is returned, empties validCheck variable to be run again
-        if(anyFalse === false){
-            validCheck = [];
+            } 
         }
 
         //if all requeirments are met, anyfalse will remain true and set isValid to true, which ends loop
@@ -92,9 +88,11 @@ function getRequirements(){
         for (var r of reqs){
             if(r === true){
                 selection = true;
+
             }
         }
 
+        //setting reqs back to empty if nothing was selected
         if(selection === false){
             reqs = [];
         }
@@ -123,12 +121,15 @@ function getLen() {
 
 //Fucntion to run through each function to collect requirements and create password
 function createPassword(){
+    var len = 0;
+    var requirements = [];
+    var passValues =[];
     //Calls length function to obtain length from users, sets length value
-    var len = getLen();
+    len = getLen();
     //Calls requirements function to obtain requirements, sets requirements array
-    var requirements = getRequirements();
+    requirements = getRequirements();
     //Calls add requirements by passing user requirements
-    var passValues = addRequirements(requirements);
+    passValues = addRequirements(requirements);
     //Generates password by sending all requirements 
     generatePassword(len, passValues, requirements);
 }
