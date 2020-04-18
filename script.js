@@ -92,7 +92,6 @@ function getRequirements(){
     return reqs;
 }
 
-
 function checkLength(pLength){
         if(pLength > 7 && pLength < 129){
             return true;
@@ -114,7 +113,7 @@ function createPassword(){
     var len = getLen();
     var requirements = getRequirements();
     var passValues = addRequirements(requirements);
-    var password = generatePassword(len, passValues, requirements);
+    generatePassword(len, passValues, requirements);
 }
 
 var generateBtn = document.querySelector("#generate");
