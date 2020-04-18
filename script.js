@@ -21,16 +21,43 @@
 //     }
 // }
 
-function getRequirements(){
-    var reqs = []
-    reqs.push(confirm("Should it contain lower case letters?"));
-    reqs.push(confirm("Should it contain upper case letters?"));
-    reqs.push(confirm("Should it contain numbers?"));
-    reqs.push(confirm("Should it contain at least one of these special characters? (!, *, $, #, -)"));
+// function validation(pass){
 
+// }
+
+
+function generatePassword(passLen, passReqs){
+    var pword = "";
+    var i = 0;
+    while(i < passLen){
+        pword += passReqs[Math.floor(Math.random() * (passReqs.length + 1))];
+        i++;
+    }
     var passwordText = document.querySelector('#password');
-    passwordText.value = reqs;
-    return reqs;
+    passwordText.value = pword;
+    
+}
+
+function getRequirements(){
+    var reqs = [];
+    var passValues = [];
+    reqs.push(confirm("Should it contain lower case letters?"));
+    if(reqs[0] === true){
+        passValues.push('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+    }
+    reqs.push(confirm("Should it contain upper case letters?"));
+    if(reqs[1] === true){
+        passValues.push('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+    }
+    reqs.push(confirm("Should it contain numbers?"));
+    if(reqs[2] === true){
+        passValues.push(0,1,2,3,4,5,6,7,8,9);
+    }
+    reqs.push(confirm("Should it contain at least one of these special characters? (!, $, #, -)"));
+    if(reqs[3] === true){
+        passValues.push('!','$','#','-');
+    }
+    return passValues;
 }
 
 
@@ -43,16 +70,18 @@ function checkLength(pLength){
 }
 
 function getLen() {
-    var lengthPass = false
+    var lengthPass = false;
     while (lengthPass !== true){
         var passLength = prompt("How long should your password be? (between 8 and 128 characters)");
         lengthPass = checkLength(passLength);
     }
+    return passLength;
 }
 
 function createPassword(){
-    getLen();
+    var len = getLen();
     var requirements = getRequirements();
+    var password = generatePassword(len, requirements);
 }
 
 var generateBtn = document.querySelector("#generate");
