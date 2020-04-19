@@ -21,7 +21,8 @@ function validation(passReqs, pass){
     return eachCheck;
 }
 
-//Generates a password based on requirements. Runs until requirements are met. Receives password length requirement, password values defined in addRequirements, and passReqs which will be used for validation.
+//Generates a password based on requirements. Runs until requirements are met. 
+//Receives password length requirement, password values defined in addRequirements, and passReqs which will be used for validation.
 function generatePassword(passLen, passVals, pReqs){
     var isValid = false;
 
@@ -51,7 +52,6 @@ function generatePassword(passLen, passVals, pReqs){
         if(anyFalse === true){
             isValid = true;
         }
-
     }
     var passwordText = document.querySelector('#password');
     passwordText.value = pword;
@@ -88,7 +88,6 @@ function getRequirements(){
         for (var r of reqs){
             if(r === true){
                 selection = true;
-
             }
         }
 
